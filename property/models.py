@@ -66,5 +66,24 @@ class Complaint(models.Model):
                              related_name='complaints')
     text = models.TextField(verbose_name='Текст жалобы')
 
+class Owner(models.Model):
+    full_name = models.CharField(verbose_name='ФИО владельца',
+                                 max_length=200,
+                                 db_index=True)
+    phonenumber = PhoneNumberField(verbose_name='Номер владельца',
+                                   region="RU",
+                                   null=True,
+                                   db_index=True)
+    pure_phone = PhoneNumberField(
+        verbose_name='Нормализованный номер владельца',
+        region="RU",
+        null=True,
+        blank=True,
+        db_index=True)
+    flats = models.ManyToManyField(Flat,
+                                   verbose_name='Квартиры в собственности',
+                                   related_name='owners',
+                                   db_index=True)
+
     def __str__(self):
         return f'{self.town}, {self.address} ({self.price}р.)'
