@@ -8,9 +8,8 @@ def connect_owner_and_flat(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
     for owner in Owner.objects.all().iterator():
         flats = Flat.objects.filter(owner=owner.full_name)
-        for flat in flats:
-            owner.flats.set([flat])
-            owner.save()
+        owner.flats.set(flats)
+        owner.save()
 
 
 class Migration(migrations.Migration):
