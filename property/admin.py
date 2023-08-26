@@ -8,7 +8,7 @@ class OwnerInline(admin.TabularInline):
     raw_id_fields = ['owner']
     verbose_name_plural = 'Связь собственников и квартир'
 
-
+@admin.register(Flat)
 class FlatAdmin(admin.ModelAdmin):
     search_fields = ['town', 'address']
     readonly_fields = ['created_at']
@@ -19,7 +19,7 @@ class FlatAdmin(admin.ModelAdmin):
     inlines = [OwnerInline, ]
 
 
-admin.site.register(Flat, FlatAdmin)
+
 
 
 @admin.register(Complaint)
