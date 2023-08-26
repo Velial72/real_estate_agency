@@ -5,13 +5,8 @@ from django.db import migrations
 
 def identify_new_buildings(apps, shcema_editor):
     Flat = apps.get_model('property', 'Flat')
-    for apartments in Flat.objects.all():
-        if apartments.construction_year >= 2015:
-            apartments.new_building = True
-            apartments.save()
-        elif apartments.construction_year < 2015:
-            apartments.new_building = False
-            apartments.save()
+    Flat.objects.filter(construction_year__gte=2015).update(new_building=True)
+    Flat.objects.filter(construction_year__lt=2015).update(new_building=False)
 
 class Migration(migrations.Migration):
 
