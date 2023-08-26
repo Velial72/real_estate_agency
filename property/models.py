@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from phonenumber_field.modelfields import PhoneNumberField
 
+
 class Flat(models.Model):
     new_building = models.BooleanField(null=True)
     created_at = models.DateTimeField(
@@ -51,6 +52,8 @@ class Flat(models.Model):
 
     def __str__(self):
         return f'{self.town}, {self.address} ({self.price}р.)'
+
+
 class Complaint(models.Model):
     user = models.ForeignKey(User,
                              verbose_name='Кто жаловался',
@@ -61,6 +64,7 @@ class Complaint(models.Model):
                              on_delete=models.CASCADE,
                              related_name='complaints')
     text = models.TextField(verbose_name='Текст жалобы')
+
 
 class Owner(models.Model):
     full_name = models.CharField(verbose_name='ФИО владельца',
@@ -83,4 +87,3 @@ class Owner(models.Model):
 
     def __str__(self):
         return self.full_name
-
